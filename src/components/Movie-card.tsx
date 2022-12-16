@@ -99,7 +99,7 @@ export default function MovieCard({
             alt={title}
             className={`${
               hidePoster ? "invisible h-0" : "visible h-full"
-            } h-full w-full`}
+            } w-full`}
           />
           <Youtube
             opts={{
@@ -114,7 +114,7 @@ export default function MovieCard({
             videoId={videoInfo?.key}
             className={`${
               !hidePoster ? "invisible h-0" : "visible h-full"
-            } h-full w-full`}
+            } w-full`}
           />
           <section className="flex items-center justify-between p-6">
             <ul className="flex items-center justify-evenly gap-4">
