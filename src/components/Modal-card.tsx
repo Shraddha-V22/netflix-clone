@@ -7,7 +7,7 @@ type ModalProps = {
   onClose: (value: boolean) => void;
   children: React.ReactElement;
   title: string | ReactElement;
-  closeModal: () => void;
+  closeModal?: () => void;
   position?: Position | null;
 };
 
@@ -22,8 +22,9 @@ export default function ModalCard({
   const panelRef = useRef<any>(null);
 
   function onMouseLeave() {
-    console.log("mouse leave happened");
-    closeModal();
+    if (closeModal) {
+      closeModal();
+    }
   }
 
   return (

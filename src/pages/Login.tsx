@@ -1,11 +1,21 @@
 import React, { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import netflixLogo from "../assets/Netflix_Logo_RGB.png";
+import { AuthContextType, useAuth } from "../commmon/auth";
 
 export default function Login() {
-  function signIn(event: FormEvent) {
+  const { signIn } = useAuth() as AuthContextType;
+  const navigate = useNavigate();
+  async function authenticateUser(event: React.SyntheticEvent) {
     event.preventDefault();
-    const { email, password } = event.target as any;
-    console.log(email.value, password.value);
+    const { email, password } = event.target as typeof event.target & {
+      email: HTMLInputElement;
+      password: HTMLInputElement;
+    };
+    const user = await signIn(email.value, password.value);
+    if (user) {
+      navigate("/");
+    }
   }
 
   return (
@@ -19,7 +29,7 @@ export default function Login() {
         ></section>
         <section className="absolute inset-0 bg-gradient-to-b from-zinc-900/50"></section>
         <form
-          onSubmit={signIn}
+          onSubmit={authenticateUser}
           className="relative mx-auto min-h-[70vh] w-[450px] rounded-lg bg-black/75 p-16"
         >
           <article>
