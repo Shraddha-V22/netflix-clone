@@ -47,20 +47,20 @@ export type MovieVideoInfo = {
 };
 
 
-export async function fetchRequest<T>(endpoint: string) {
+export async function fetchRequest<T>(endpoint: string) { //fetching movie data
   const url = new URL(endpoint, import.meta.env.VITE_BASE_URI);
   url.searchParams.append("api_key", import.meta.env.VITE_API_KEY);
   const response = await fetch(url);
-  return response.json() as Promise<T> ;
+  return response.json() as Promise<T> ; //returns promise with generic type
 }
 
-export async function fetchVideoInfo(id: string) {
-  const response = await fetchRequest<MovieVideoResult<MovieVideoInfo[]>>(
+export async function fetchVideoInfo(id: string) { //fetching video information
+  const response = await fetchRequest<MovieVideoResult<MovieVideoInfo[]>>( //array of movievideoinfo type of movievideoresult
     ENDPOINT.MOVIES_VIDEO.replace("{movie_id}", id)
   );
   return response.results.filter(
     (result) =>
-      result.site.toLowerCase() === "youtube" &&
+      result.site.toLowerCase() === "youtube" && //filtering video result
       result.type.toLowerCase() === "trailer"
   );
 }

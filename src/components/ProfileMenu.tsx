@@ -9,12 +9,15 @@ export default function ProfileMenu() {
 
   function onMouseEnter() {
     if (timerId.current) {
+      //if timerId is available then clear clear timeout and set show menu to true
       clearTimeout(timerId.current);
     }
     setShowMenu(true);
   }
+
   function onMouseLeave() {
     timerId.current = setTimeout(() => {
+      //hide menu after 300ms
       setShowMenu(false);
     }, 300);
   }

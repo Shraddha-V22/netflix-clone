@@ -8,6 +8,7 @@ export default function SearchBar() {
 
   function handleOutsideClick(event: globalThis.MouseEvent) {
     if ((event.target as HTMLInputElement).id !== "search-bar") {
+      //clicking anywhere else except input with search-bar id
       setOpen(false);
     }
   }
@@ -15,13 +16,15 @@ export default function SearchBar() {
   function toggleSearch(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
     if (!open) {
-      inputRef.current?.focus();
+      //on click on search icon - check if open is false
+      inputRef.current?.focus(); //focus input area
     }
-    setOpen(!open);
+    setOpen(!open); //set open to opposite of the prev boolean value
   }
 
   useEffect(() => {
     if (open) {
+      //if open true - this
       window.addEventListener("click", handleOutsideClick);
     }
 

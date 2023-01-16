@@ -22,32 +22,38 @@ export default function ContentRows({ title, endpoint }: RowProp) {
   const disableNext = currentPage + 1 === pagesCount;
 
   async function fetchRowData() {
-    const response = await fetchRequest<MovieResponse<MovieResult[]>>(endpoint);
+    const response = await fetchRequest<MovieResponse<MovieResult[]>>(endpoint); //give endpoint and fetch the movie result
     setRowData(response.results);
   }
   const CARD_WIDTH = 200;
 
   function onNextClick() {
+    //next click function
     if (sliderRef.current) {
-      let updatedTranslateX = translateX - getTranslateXValue();
-      sliderRef.current.style.transform = `translateX(${updatedTranslateX}%)`;
-      setTranslateX(updatedTranslateX);
-      setCurrentPage(currentPage + 1);
+      //if sliderref.current is available
+      let updatedTranslateX = translateX - getTranslateXValue(); //how much to translate
+      sliderRef.current.style.transform = `translateX(${updatedTranslateX}%)`; //set transform style property
+      setTranslateX(updatedTranslateX); //set tanslatex to that value
+      setCurrentPage(currentPage + 1); //increasing the current page value
     }
   }
   function onPrevClick() {
+    //prev click function
     if (sliderRef.current) {
-      let updatedTranslateX = translateX + getTranslateXValue();
-      sliderRef.current.style.transform = `translateX(${updatedTranslateX}%)`;
-      setTranslateX(updatedTranslateX);
-      setCurrentPage(currentPage - 1);
+      //if sliderref.current is available
+      let updatedTranslateX = translateX + getTranslateXValue(); //how much to translate
+      sliderRef.current.style.transform = `translateX(${updatedTranslateX}%)`; //set transform style property
+      setTranslateX(updatedTranslateX); //set translate to that value
+      setCurrentPage(currentPage - 1); //decreasing the current page value
     }
   }
 
   function getTranslateXValue() {
-    let translateX = 0;
+    // to get translate value
+    let translateX = 0; //initially 0
     if (sliderRef.current) {
-      translateX =
+      //if sliderref available
+      translateX = // multiplying cards per page width card's width and dividing it with total width of the row with cards and then multiply by 100 to get percentage value
         ((cardsPerPage.current * CARD_WIDTH) / sliderRef.current.clientWidth) *
         100;
     }
@@ -56,14 +62,17 @@ export default function ContentRows({ title, endpoint }: RowProp) {
 
   useEffect(() => {
     if (rowData?.length) {
+      //if there is rowdata and it has a length
       if (containerRef.current) {
+        //if containerref.current is available
         cardsPerPage.current = Math.floor(
+          //cards per page is containerref divided by card width
           containerRef.current.clientWidth / CARD_WIDTH
         );
-        setPagesCount(Math.ceil(rowData.length / cardsPerPage.current));
+        setPagesCount(Math.ceil(rowData.length / cardsPerPage.current)); //set page count to rowdata(number of movie cards) divided by cards on per page
       }
     }
-  }, [rowData.length]);
+  }, [rowData.length]); //when rowdata changes
 
   useEffect(() => {
     fetchRowData();
@@ -78,10 +87,10 @@ export default function ContentRows({ title, endpoint }: RowProp) {
         currentPage={currentPage}
       />
       <section
-        ref={containerRef}
+        ref={containerRef} //section with width almost equal to screen width- container width
         className="relative mb-10 flex flex-nowrap gap-2 overflow-hidden"
       >
-        {!disableNext && (
+        {!disableNext && ( //if disableNext is false then next button will show
           <button
             className="absolute right-0 z-[1] h-full w-12 bg-black/25 opacity-0 transition-opacity duration-300 ease-in"
             onClick={onNextClick}
@@ -89,7 +98,7 @@ export default function ContentRows({ title, endpoint }: RowProp) {
             <ChevronRight />
           </button>
         )}
-        {!disablePrev && (
+        {!disablePrev && ( //if disablePrev is false then next button will show
           <button
             className="absolute z-[1] h-full w-12 bg-black/25  opacity-0 transition-opacity duration-300 ease-in"
             onClick={onPrevClick}
@@ -98,7 +107,7 @@ export default function ContentRows({ title, endpoint }: RowProp) {
           </button>
         )}
         <section
-          ref={sliderRef}
+          ref={sliderRef} //slider ref with bigger length
           className="flex gap-2 transition-transform duration-700 ease-linear"
         >
           {rowData?.map((row) => {

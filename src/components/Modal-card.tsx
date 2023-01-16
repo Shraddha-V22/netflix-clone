@@ -3,6 +3,7 @@ import { Fragment, ReactElement, useEffect, useRef, useState } from "react";
 import { Position } from "../commmon/types";
 
 type ModalProps = {
+  //create type alias for ModalCard props
   isOpen: boolean;
   onClose: (value: boolean) => void;
   children: React.ReactElement;
@@ -53,7 +54,7 @@ export default function ModalCard({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
               afterEnter={() => {
-                panelRef.current?.addEventListener("mouseleave", onMouseLeave);
+                panelRef.current?.addEventListener("mouseleave", onMouseLeave); //close modal on mouseleave
               }}
               afterLeave={() => {
                 panelRef.current?.removeEventListener(

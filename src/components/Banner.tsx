@@ -32,57 +32,61 @@ export default function Banner() {
   }
 
   async function fetchPopularMovies() {
-    const response = await fetchRequest<MovieResponse<MovieResult[]>>(
+    const response = await fetchRequest<MovieResponse<MovieResult[]>>( //fetch movies
       ENDPOINT.MOVIES_POPULAR
     );
     const filteredMovies = response.results.filter(
+      //getting movies having backdrop_path properties
       (movie) => movie.backdrop_path
     );
     const randomSelection =
-      filteredMovies[getRandomIndex(filteredMovies.length)];
-    setRandomMovie(randomSelection);
-    const videoInfo = await fetchVideoInfo(randomSelection.id.toString());
-    setVideoInfo(videoInfo[0]);
+      filteredMovies[getRandomIndex(filteredMovies.length)]; //get random movie
+    setRandomMovie(randomSelection); //set random movie as random selection
+    const videoInfo = await fetchVideoInfo(randomSelection.id.toString()); //fetching video info of random movie
+    setVideoInfo(videoInfo[0]); //set video info to 1st item in videoinfo
     setTimeout(() => {
-      setHidePoster(true);
+      setHidePoster(true); //hiding the image banner after 800ms
     }, 800);
   }
 
   useEffect(() => {
-    fetchPopularMovies();
+    fetchPopularMovies(); //call the fetchpopmovies function
   }, []);
 
   function onStateChange(event: YouTubeEvent<number>) {
     if (event.data === 0) {
+      //0 - video is paused
       setHidePoster(false);
       setShowBackdrop(true);
     } else if (event.data === 1) {
+      //1 - video is running
       setHidePoster(true);
       setShowBackdrop(false);
     }
   }
 
-  return randomMovie ? (
+  return randomMovie ? ( //if there is a random movie
     <section className="relative aspect-video h-[800px] w-full">
       <img
         src={createImageURL(randomMovie?.backdrop_path ?? "", 0, "original")}
         alt={randomMovie?.title}
         className={`${hidePoster ? "invisible h-0" : "visible h-full"} w-full`}
       />
-      {videoInfo ? (
-        <YouTube
+      {videoInfo ? ( //if videoinfo is available
+        <YouTube //then youtube component will show
           videoId={videoInfo?.key}
           id="banner-video"
-          opts={options}
+          opts={options} //some options which we have defined above
           className={`-mt-20 ${
             !hidePoster ? "invisible h-0" : "visible h-full"
           } absolute z-[1]`}
-          onStateChange={onStateChange}
+          onStateChange={onStateChange} //state change function - what to do in case of 0 and 1
         />
       ) : null}
-      {showBackdrop ? (
+      {showBackdrop ? ( //if showbackdrop is true
         <section className="absolute top-0 left-0 z-[1] h-full w-full bg-dark/60"></section>
       ) : null}
+      {/* info about the video playing in the banner */}
       <section className="absolute bottom-52 z-[1] ml-28 flex max-w-sm flex-col gap-4">
         <h2 className="text-xl">{randomMovie.title}</h2>
         <p className="text-sm line-clamp-3">{randomMovie.overview}</p>

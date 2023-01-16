@@ -13,6 +13,7 @@ export default function Header() {
 
   function onWindowScroll() {
     if (window.scrollY > 8) {
+      //on scroll event - setting fixed to true/false
       setFixed(true);
     } else {
       setFixed(false);
@@ -28,7 +29,7 @@ export default function Header() {
   return (
     <header
       className={`z-10 py-2 pr-16 ${
-        fixed ? "fixed top-0 bg-dark" : "relative bg-transparent"
+        fixed ? "fixed top-0 bg-dark" : "relative bg-transparent" //set header position fixed if fixed is true
       } w-full transition-colors duration-300 ease-linear`}
     >
       <nav className="grid grid-cols-[200px_auto_auto] items-center gap-4">

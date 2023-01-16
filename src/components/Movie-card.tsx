@@ -31,21 +31,22 @@ export default function MovieCard({
   const [position, setPosition] = useState<Position | null>(null);
 
   async function onMouseEnter(event: any) {
-    const [videoInfo] = await fetchVideoInfo(id.toString());
-    let calculatedPosition = movieCardRef.current?.getBoundingClientRect();
+    //when mouse enters the card
+    const [videoInfo] = await fetchVideoInfo(id.toString()); //fetch video info
+    let calculatedPosition = movieCardRef.current?.getBoundingClientRect(); //get card position
     console.log({ calculatedPosition });
-    let top = (calculatedPosition?.top ?? 0) - 100;
-    let left = (calculatedPosition?.left ?? 0) - 100;
+    let top = (calculatedPosition?.top ?? 0) - 100; //decreasing 100 from the top position
+    let left = (calculatedPosition?.left ?? 0) - 100; //decreasing 100 from the left position
     if (left < 0) {
       left = calculatedPosition?.left as number;
     }
-    let totalWidth = left + 470;
+    let totalWidth = left + 470; //total width is left position plus a little more than video's width
     if (totalWidth > document.body.clientWidth) {
       left = left - (totalWidth - document.body.clientWidth);
     }
-    setPosition({ top, left });
-    setVideoInfo(videoInfo);
-    setIsOpen(true);
+    setPosition({ top, left }); //position
+    setVideoInfo(videoInfo); //video info
+    setIsOpen(true); //open video modal
   }
 
   useEffect(() => {
@@ -56,13 +57,13 @@ export default function MovieCard({
   useEffect(() => {
     if (videoInfo?.key) {
       setTimeout(() => {
-        setHidePoster(true);
+        setHidePoster(true); //if videoid is available then hide thumbnail img poster
       }, 800);
     }
     if (!isOpen) {
-      setHidePoster(false);
+      setHidePoster(false); //if modal is not open then hide the thumbnail img poster
     }
-  }, [videoInfo, isOpen]);
+  }, [videoInfo, isOpen]); //dependent on videoinfo and isopen
 
   function onClose(value: boolean) {
     setIsOpen(value);
@@ -81,7 +82,7 @@ export default function MovieCard({
       >
         <img
           className="h-full w-full"
-          src={createImageURL(poster_path, CARD_WIDTH)}
+          src={createImageURL(poster_path, CARD_WIDTH)} //movie card img
           alt={title}
         />
       </section>
@@ -98,7 +99,7 @@ export default function MovieCard({
             src={createImageURL(poster_path, 400)}
             alt={title}
             className={`${
-              hidePoster ? "invisible h-0" : "visible h-full"
+              hidePoster ? "invisible h-0" : "visible h-full" //img to show as thumbnail for the video
             } w-full`}
           />
           <Youtube
@@ -113,7 +114,7 @@ export default function MovieCard({
             }}
             videoId={videoInfo?.key}
             className={`${
-              !hidePoster ? "invisible h-0" : "visible h-full"
+              !hidePoster ? "invisible h-0" : "visible h-full" //video starts and hides the img
             } w-full`}
           />
           <section className="flex items-center justify-between p-6">

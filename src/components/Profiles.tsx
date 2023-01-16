@@ -30,7 +30,7 @@ export default function Profiles({ edit }: { edit: boolean }) {
           <ProfileButton>Done</ProfileButton>
           <EditProfile
             edit={edit}
-            isOpen={isProfileEditorOpen}
+            isOpen={isProfileEditorOpen} //to open and close edit modal
             title=""
             onClose={closeEditor}
           />
