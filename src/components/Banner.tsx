@@ -11,6 +11,7 @@ import { ENDPOINT } from "../commmon/endpoints";
 import { createImageURL } from "../commmon/utils";
 import PlayIcon from "@heroicons/react/24/solid/PlayIcon";
 import Info from "@heroicons/react/24/outline/InformationCircleIcon";
+import Loader from "./Loader";
 
 export default function Banner() {
   const [randomMovie, setRandomMovie] = useState<MovieResult>();
@@ -46,7 +47,7 @@ export default function Banner() {
     setVideoInfo(videoInfo[0]); //set video info to 1st item in videoinfo
     setTimeout(() => {
       setHidePoster(true); //hiding the image banner after 800ms
-    }, 800);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -91,16 +92,18 @@ export default function Banner() {
         <h2 className="text-xl">{randomMovie.title}</h2>
         <p className="text-sm line-clamp-3">{randomMovie.overview}</p>
         <section className="flex gap-2">
-          <button className="flex w-[100px] items-center justify-evenly rounded-md bg-white p-2 text-dark">
+          <button className="flex w-[100px] items-center justify-center gap-1 rounded-md bg-white p-2 text-dark">
             <PlayIcon className="h-8 w-8" />
             <span>Play</span>
           </button>
-          <button className="flex w-[150px] items-center justify-evenly rounded-md bg-zinc-400/50 p-2 text-white">
+          <button className="flex w-[150px] items-center justify-center gap-1 rounded-md bg-zinc-400/50 p-2 text-white">
             <Info className="h-8 w-8" />
             <span>More Info</span>
           </button>
         </section>
       </section>
     </section>
-  ) : null;
+  ) : (
+    <Loader />
+  );
 }

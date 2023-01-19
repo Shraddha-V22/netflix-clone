@@ -2,26 +2,45 @@ import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Link,
   Navigate,
   Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./commmon/auth";
+import ProfileProvider from "./commmon/profile-context";
 import Layout from "./components/Layout";
+import Loader from "./components/Loader";
 import Browse from "./pages/Browse";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Registration from "./pages/Registration";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
-  const { user } = useAuth();
-  // if (!user) {
-  //   return <Navigate to="/login" />;
-  // }
+  const { user, loading } = useAuth();
+  if (!user && !loading) {
+    return <Navigate to="/login" />;
+  }
   return children;
 }
 
+function RouteError() {
+  return (
+    <article className="grid place-content-center gap-2 p-4">
+      <h1 className="text-4xl">The page you're looking for doesn't exist</h1>
+      <p className="text-2xl">
+        Browse more content{" "}
+        <Link className="text-netflixRed" to="/browse">
+          here
+        </Link>
+      </p>
+    </article>
+  );
+}
+
 function AppRouter() {
+  const { loading, user } = useAuth();
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -32,6 +51,7 @@ function AppRouter() {
               <Outlet />
             </ProtectedRoute>
           }
+          errorElement={<RouteError />}
         >
           <Route index element={<Profile />} />
           <Route path="/manageProfiles" element={<Profile edit />} />
@@ -43,16 +63,23 @@ function AppRouter() {
           </Route>
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Registration />} />
       </>
     )
   );
-  return <RouterProvider router={router}></RouterProvider>;
+  return loading ? (
+    <Loader />
+  ) : (
+    <RouterProvider router={router}></RouterProvider>
+  );
 }
 
 export default function App() {
   return (
     <AuthProvider>
-      <AppRouter />
+      <ProfileProvider>
+        <AppRouter />
+      </ProfileProvider>
     </AuthProvider>
   );
 }

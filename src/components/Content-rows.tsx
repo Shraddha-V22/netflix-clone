@@ -23,7 +23,7 @@ export default function ContentRows({ title, endpoint }: RowProp) {
 
   async function fetchRowData() {
     const response = await fetchRequest<MovieResponse<MovieResult[]>>(endpoint); //give endpoint and fetch the movie result
-    setRowData(response.results);
+    setRowData(response.results.filter((res) => res.poster_path));
   }
   const CARD_WIDTH = 200;
 

@@ -33,6 +33,8 @@ export type AuthContextType = ReturnType<typeof useProviderAuth>; //a type alias
 
 const AuthContext = createContext<AuthContextType | null>(null); //authcontext can be of type authContexttype or null.
 
+export const useAuth = () => useContext(AuthContext) ?? ({} as AuthContextType); //custom hook to get the return value of useauthprovider
+
 export const AuthProvider = ({
   //provides auth functions and user throughout the app
   children,
@@ -45,12 +47,20 @@ export const AuthProvider = ({
 
 function useProviderAuth() {
   //custom hook with signIn, signout, signup functions
-  const [user, setUser] = useState<User | null>(null);
+
+  //current user null ->
+  //1. firebase is still fetching the information. async operation.
+  //2. when the user is logged out
+
+  //user is logged in -> we get a user
+  const [user, setUser] = useState<User | null>(auth.currentUser);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       //observer for user's signin state
-      user ? setUser(user) : setUser(null);
+      setLoading(false);
+      setUser(user);
     });
 
     return () => {
@@ -61,25 +71,22 @@ function useProviderAuth() {
   const signUp = (email: string, password: string) =>
     createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
       //creates a new user with given email password
-      setUser(user);
       return user;
     });
 
   const signIn = (email: string, password: string) =>
     signInWithEmailAndPassword(auth, email, password).then(({ user }) => {
       //signs ins user "asynchronously"
-      setUser(user);
       return user;
     });
 
-  const signOutUser = signOut(auth).then(() => setUser(null)); //signs out user
+  const signOutUser = () => signOut(auth); //signs out user
 
   return {
     signUp,
     signIn,
     signOut: signOutUser,
     user,
+    loading,
   };
 }
-
-export const useAuth = () => useContext(AuthContext) ?? ({} as AuthContextType); //custom hook to get the return value of useauthprovider
