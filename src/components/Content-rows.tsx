@@ -79,8 +79,8 @@ export default function ContentRows({ title, endpoint }: RowProp) {
   }, []);
 
   return (
-    <section className="row-container ml-12 hover:cursor-pointer">
-      <h1 className="text-xl">{title}</h1>
+    <section className="row-container mx-12 hover:cursor-pointer">
+      <h1 className="text-2xl font-semibold">{title}</h1>
       <PageMarker
         className="mb-4 opacity-0 transition-opacity duration-300 ease-in"
         pagesCount={pagesCount}

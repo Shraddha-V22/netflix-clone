@@ -58,7 +58,7 @@ export default function MovieCard({
     if (videoInfo?.key) {
       setTimeout(() => {
         setHidePoster(true); //if videoid is available then hide thumbnail img poster
-      }, 800);
+      }, 1000);
     }
     if (!isOpen) {
       setHidePoster(false); //if modal is not open then hide the thumbnail img poster

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -10,12 +10,12 @@ import {
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./commmon/auth";
 import ProfileProvider from "./commmon/profile-context";
-import Layout from "./components/Layout";
+const Layout = lazy(() => import("./components/Layout"));
 import Loader from "./components/Loader";
-import Browse from "./pages/Browse";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Registration from "./pages/Registration";
+const Browse = lazy(() => import("./pages/Browse"));
+const Login = lazy(() => import("./pages/Login"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Registration = lazy(() => import("./pages/Registration"));
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const { user, loading } = useAuth();
@@ -70,7 +70,9 @@ function AppRouter() {
   return loading ? (
     <Loader />
   ) : (
-    <RouterProvider router={router}></RouterProvider>
+    <React.Suspense fallback={<Loader />}>
+      <RouterProvider router={router}></RouterProvider>
+    </React.Suspense>
   );
 }
 
