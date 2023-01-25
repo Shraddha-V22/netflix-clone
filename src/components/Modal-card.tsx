@@ -73,7 +73,7 @@ export default function ModalCard({
                       }
                     : {}
                 }
-                className="max-w-md transform overflow-hidden rounded-2xl bg-dark text-left align-middle shadow-xl transition-all"
+                className="transform overflow-hidden rounded-2xl bg-dark p-4 text-left align-middle shadow-xl transition-all"
               >
                 <Dialog.Title
                   as="h3"
