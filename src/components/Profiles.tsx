@@ -206,22 +206,22 @@ function EditProfile(props: {
   return (
     <ModalCard {...props}>
       <section className="h-screen w-screen">
-        <form onSubmit={onSubmit} className="mx-auto my-16 max-w-4xl">
+        <form onSubmit={onSubmit} className="mx-auto my-16 max-w-2xl">
           <h1 className="mb-4 text-6xl">{heading}</h1>
           <section className="grid grid-cols-[200px_auto] gap-4 border-t border-b p-4 text-gray-100">
             <section className="aspect-square overflow-hidden rounded-md">
               <img src={props.profile.imageUrl} alt="" />
             </section>
-          </section>
-          <section>
-            <input
-              name="profileName"
-              id="profileName"
-              defaultValue={props.profile.name}
-              type="text"
-              className="w-full bg-zinc-500 p-2 outline-none"
-              placeholder="Enter name for the profile"
-            />
+            <section>
+              <input
+                name="profileName"
+                id="profileName"
+                defaultValue={props.profile.name}
+                type="text"
+                className="w-full bg-zinc-500 p-2 px-4 outline-none"
+                placeholder="Enter name for the profile"
+              />
+            </section>
           </section>
           <section className="mt-8 flex gap-4">
             <ProfileButton type="submit">Save</ProfileButton>
