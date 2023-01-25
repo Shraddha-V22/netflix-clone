@@ -27,7 +27,7 @@ function ProtectedRoute({ children }: { children: React.ReactElement }) {
 
 function RouteError() {
   return (
-    <article className="grid place-content-center gap-2 p-4">
+    <article className="m-4 grid place-content-center gap-2 p-4">
       <h1 className="text-4xl">The page you're looking for doesn't exist</h1>
       <p className="text-2xl">
         Browse more content{" "}

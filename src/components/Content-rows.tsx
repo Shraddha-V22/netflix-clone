@@ -108,7 +108,7 @@ export default function ContentRows({ title, endpoint }: RowProp) {
         )}
         <section
           ref={sliderRef} //slider ref with bigger length
-          className="flex gap-2 transition-transform duration-700 ease-linear"
+          className="flex gap-3 transition-transform duration-700 ease-linear"
         >
           {rowData?.map((row) => {
             return (

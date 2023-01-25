@@ -29,10 +29,10 @@ export default function Registration() {
         <section className="absolute inset-0 bg-gradient-to-b from-zinc-900/50"></section>
         <form
           onSubmit={registerUser}
-          className="relative mx-auto w-[350px] rounded-lg bg-black/75 p-16"
+          className="relative mx-auto w-[380px] rounded-lg bg-black/75 p-16"
         >
           <article className="text-gray-300">
-            <h1 className="mb-4 text-4xl text-white">Sign Up</h1>
+            <h1 className="mb-8 text-center text-4xl text-white">Sign Up</h1>
             <section className="mb-4 flex flex-col gap-4">
               <input
                 className="rounded-md bg-zinc-500 p-2 outline-none"
@@ -49,12 +49,12 @@ export default function Registration() {
                 placeholder="Enter password"
               />
               <button className="my-8 rounded-md bg-netflixRed p-2 font-semibold text-white outline-none">
-                Sign In
+                Sign Up
               </button>
             </section>
             <p>
               Already have an account?{" "}
-              <Link to="/login" className="text-white">
+              <Link to="/login" className="text-white hover:underline">
                 Sign In now.
               </Link>
             </p>

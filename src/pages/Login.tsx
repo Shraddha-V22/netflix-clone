@@ -34,10 +34,10 @@ export default function Login() {
         <section className="absolute inset-0 bg-gradient-to-b from-zinc-900/50"></section>
         <form
           onSubmit={authenticateUser}
-          className="relative mx-auto w-[350px] rounded-lg bg-black/75 p-16"
+          className="relative mx-auto w-[380px] rounded-lg bg-black/75 p-16"
         >
           <article className="text-gray-300">
-            <h1 className="mb-4 text-4xl text-white">Sign In</h1>
+            <h1 className="mb-4 text-center text-4xl text-white">Sign In</h1>
             <section className="mb-4 flex flex-col gap-4">
               <input
                 className="rounded-md bg-zinc-500 p-2 outline-none"
@@ -59,7 +59,7 @@ export default function Login() {
             </section>
             <p>
               New to Netflix?{" "}
-              <Link to="/signup" className="text-white">
+              <Link to="/signup" className="text-white hover:underline">
                 Sign Up now.
               </Link>
             </p>

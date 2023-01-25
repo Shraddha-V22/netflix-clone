@@ -94,18 +94,18 @@ export default function MovieCard({
         closeModal={closeModal}
         position={position}
       >
-        <section className="aspect-square transition-[height] duration-500 ease-in">
+        <section className="transition-[height] duration-500 ease-in">
           <img
             src={createImageURL(poster_path, 400)}
             alt={title}
             className={`${
-              hidePoster ? "invisible h-0" : "visible h-full" //img to show as thumbnail for the video
-            } w-full`}
+              hidePoster ? "invisible h-0" : "visible h-[300px]" //img to show as thumbnail for the video
+            } w-full object-cover`}
           />
           <Youtube
             opts={{
               width: "400",
-              height: "400",
+              height: "300",
               playerVars: {
                 autoplay: 1,
                 playsinline: 1,
@@ -117,7 +117,7 @@ export default function MovieCard({
               !hidePoster ? "invisible h-0" : "visible h-full" //video starts and hides the img
             } w-full`}
           />
-          <section className="flex items-center justify-between p-6">
+          <section className="flex items-center justify-between p-4">
             <ul className="flex items-center justify-evenly gap-4">
               <li className="h-12 w-12">
                 <button className="h-full w-full">
