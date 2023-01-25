@@ -89,7 +89,7 @@ export default function Banner() {
       ) : null}
       {/* info about the video playing in the banner */}
       <section className="absolute bottom-56 z-[1] ml-28 flex max-w-sm flex-col gap-4">
-        <h2 className="text-3xl">{randomMovie.title}</h2>
+        <h2 className="text-5xl">{randomMovie.title}</h2>
         <p className="text-sm line-clamp-3">{randomMovie.overview}</p>
         <section className="flex gap-2">
           <button className="flex w-[100px] items-center justify-center gap-1 rounded-md bg-white p-2 text-dark">
